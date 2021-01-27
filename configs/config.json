@@ -1,5 +1,6 @@
 {
   "port": 8081,
   "dbPath": "task.db",
+  "xmlPath": "task.xml",
   "token": ""
 }
