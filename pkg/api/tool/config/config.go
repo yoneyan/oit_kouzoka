@@ -6,9 +6,9 @@ import (
 )
 
 type Config struct {
-	Port   int    `json:"port"`
-	DBPath string `json:"dbPath"`
-	Token  string `json:"token"`
+	Port    int    `json:"port"`
+	XMLPath string `json:"xmlPath"`
+	Token   string `json:"token"`
 }
 
 var Conf Config

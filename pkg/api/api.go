@@ -1,46 +1,31 @@
 package api
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	task "github.com/yoneyan/oit_kouzoka/pkg/api/core/task/v0"
-	"github.com/yoneyan/oit_kouzoka/pkg/api/store"
 	"github.com/yoneyan/oit_kouzoka/pkg/api/tool/config"
 	"log"
 	"net/http"
 	"strconv"
-	"time"
 )
 
 func RestAPI() {
-
 	log.Println("Server Port: " + strconv.Itoa(config.Conf.Port))
 
 	router := gin.Default()
 	router.Use(cors)
-
-	// DBの呼び出し
-	db, err := store.ConnectDB()
-	if err != nil {
-		log.Println("database connection error")
-		fmt.Errorf("(%s)error: %s\n", time.Now(), err.Error())
-	}
-
-	defer db.Close()
-
-	hTask := task.NewTaskHandler(db)
 
 	api := router.Group("/api")
 	{
 		v1 := api.Group("/v1")
 		{
 			// Task
-			v1.POST("/task", hTask.Create)
-			v1.DELETE("/task/:id", hTask.Delete)
-			v1.GET("/task", hTask.Get)
+			v1.POST("/task", task.Create)
+			v1.DELETE("/task/:id", task.Delete)
+			v1.GET("/task", task.Get)
 		}
 	}
-	err = http.ListenAndServe(":"+strconv.Itoa(config.Conf.Port), router)
+	err := http.ListenAndServe(":"+strconv.Itoa(config.Conf.Port), router)
 	if err != nil {
 		log.Println(err)
 	}

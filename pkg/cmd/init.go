@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/yoneyan/oit_kouzoka/pkg/api/store"
 	"github.com/yoneyan/oit_kouzoka/pkg/api/tool/config"
 	"log"
 )
@@ -20,10 +19,6 @@ var initCmd = &cobra.Command{
 			log.Fatalf("error config process |%v", err)
 		}
 
-		err = store.InitDB()
-		if err != nil {
-			log.Println(err)
-		}
 		log.Println("end")
 	},
 }
